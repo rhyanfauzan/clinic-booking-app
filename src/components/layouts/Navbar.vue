@@ -1,20 +1,21 @@
 <template>
   <fwb-navbar>
     <template #logo>
-      <fwb-navbar-logo
-        alt="Flowbite logo"
-        image-url="https://flowbite.com/docs/images/logo.svg"
-        link="#"
-      >
-        Flowbite
-      </fwb-navbar-logo>
+      <div class="flex items-center">
+        <img
+          src="../../assets/images/logo2.png"
+          alt="logo"
+          style="width: 40px"
+        />
+        <h5 class="ml-2 font-medium text-lg">Clinic Booking App</h5>
+      </div>
     </template>
     <template #default="{ isShowMenu }">
       <fwb-navbar-collapse :is-show-menu="isShowMenu">
         <fwb-navbar-link is-active link="/"> Home </fwb-navbar-link>
         <fwb-navbar-link link="/doctors"> Doctors </fwb-navbar-link>
-        <fwb-navbar-link link="/"> History </fwb-navbar-link>
-        <fwb-navbar-link link="/"> Availability </fwb-navbar-link>
+        <fwb-navbar-link link="/history"> History </fwb-navbar-link>
+        <fwb-navbar-link link="/availability"> Availability </fwb-navbar-link>
       </fwb-navbar-collapse>
     </template>
     <template #right-side>

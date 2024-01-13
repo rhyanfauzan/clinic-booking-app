@@ -2,13 +2,15 @@
   <FwbFooter footer-type="socialmedia">
     <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700" />
 
-    <div class="md:flex md:justify-between">
-      <FwbFooterBrand
-        alt="Flowbite Logo"
-        href="https://flowbite.com"
-        name="Flowbite"
-        src="https://flowbite.com/docs/images/logo.svg"
-      />
+    <div class="md:flex items-start md:justify-between">
+      <div class="flex items-center">
+        <img
+          src="../../assets/images/logo2.png"
+          alt="logo"
+          style="width: 40px"
+        />
+        <h5 class="ml-2 font-medium text-lg">Clinic Booking App</h5>
+      </div>
       <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
         <div>
           <h2

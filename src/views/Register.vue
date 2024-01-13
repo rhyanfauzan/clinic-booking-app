@@ -8,16 +8,55 @@
           <h2
             class="text-2xl text-center font-bold text-gray-900 dark:text-white"
           >
-            Sign in to Clinic Booking App
+            Register
           </h2>
-          <img
-            src="../assets/images/login.png"
-            alt=""
-            class="mx-auto"
-            style="height: 170px"
-          />
 
           <form class="mt-8 space-y-6" action="#">
+            <div class="text-start">
+              <label
+                for="full_name"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Full Name</label
+              >
+              <input
+                id="full_name"
+                type="text"
+                name="full_name"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="name"
+                required
+              />
+            </div>
+            <div class="text-start">
+              <label
+                for="username"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Username</label
+              >
+              <input
+                id="username"
+                type="text"
+                name="username"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="username"
+                required
+              />
+            </div>
+            <div class="text-start">
+              <label
+                for="contact"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Contact</label
+              >
+              <input
+                id="contact"
+                type="text"
+                name="contact"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="contact"
+                required
+              />
+            </div>
             <div class="text-start">
               <label
                 for="email"
@@ -74,18 +113,18 @@
             </div> -->
             <button
               type="button"
-              @click="Login"
+              @click="Register"
               class="w-full px-5 py-2 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               style="width: 100%"
             >
-              Login
+              Submit
             </button>
             <div class="text-sm font-medium text-gray-900 dark:text-white">
-              Not registered yet?
+              Already have an account?
               <a
-                @click="GoToRegister"
+                @click="GoToLogin"
                 class="text-blue-600 hover:underline dark:text-blue-500"
-                >Create account</a
+                >Login</a
               >
             </div>
           </form>
@@ -106,8 +145,8 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const Login = () => {
-  router.push('/');
+const GoToLogin = () => {
+  router.push('/login');
 };
 const GoToRegister = () => {
   router.push('/register');

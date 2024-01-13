@@ -1,27 +1,43 @@
 // router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
-import Dashboard from '../views/admin/Dashboard.vue';
 import Navbar from '../components/layouts/Navbar.vue';
 import Login from '../views/Login.vue';
-import Doctors from '../views/user/Doctors.vue';
+import Register from '../views/Register.vue';
 
 const routes = [
   {
     path: '/',
     name: 'dashboard',
-    component: Dashboard,
+    component: () => import('../views/user/Dashboard.vue'),
     meta: { navbar: Navbar },
   },
   {
     path: '/doctors',
     name: 'doctors',
-    component: Doctors,
+    component: () => import('../views/user/Doctors.vue'),
+    meta: { navbar: Navbar },
+  },
+  {
+    path: '/history',
+    name: 'history',
+    component: () => import('../views/user/History.vue'),
+    meta: { navbar: Navbar },
+  },
+  {
+    path: '/availability',
+    name: 'availability',
+    component: () => import('../views/user/Availability.vue'),
     meta: { navbar: Navbar },
   },
   {
     path: '/login',
     name: 'login-page',
     component: Login,
+  },
+  {
+    path: '/register',
+    name: 'register-page',
+    component: Register,
   },
 ];
 
