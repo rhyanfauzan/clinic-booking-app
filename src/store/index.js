@@ -13,5 +13,8 @@ export const useCounterStore = defineStore('counter', {
 });
 
 export const useVariableStore = defineStore('variable', {
-  state: () => ({ BASEURL: 'http://localhost:3000', name: 'Eduardo' }),
+  state: () => ({
+    // BASEURL: 'http://localhost:3000', // Dev local --
+    BASEURL: 'https://api.bookingclinicapp.zethansa.com', // Hosting --
+  }),
 });
