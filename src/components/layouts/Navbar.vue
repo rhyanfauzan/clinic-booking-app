@@ -7,7 +7,7 @@
           alt="logo"
           style="width: 40px"
         />
-        <h5 class="ml-2 font-medium text-lg">Clinic Booking App</h5>
+        <h5 class="ml-2 font-medium text-lg">Zein Clinic</h5>
       </div>
     </template>
     <template #default="{ isShowMenu }">

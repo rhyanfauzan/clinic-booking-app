@@ -9,18 +9,22 @@
           alt="logo"
           style="width: 40px"
         />
-        <h5 class="ml-2 font-medium text-lg">Clinic Booking App</h5>
+        <h5 class="ml-2 font-medium text-lg">Zein Clinic</h5>
       </div>
       <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
         <div>
           <h2
             class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white"
           >
-            Resources
+            Contact
           </h2>
           <FwbFooterLinkGroup class="flex flex-col items-start">
-            <FwbFooterLink class="mb-4" href="/"> Flowbite </FwbFooterLink>
-            <FwbFooterLink class="mb-4" href="/"> Tailwind CSS </FwbFooterLink>
+            <FwbFooterLink class="mb-4" href="/">
+              Jl. Soekarno-Hatta, Bandung
+            </FwbFooterLink>
+            <FwbFooterLink class="mb-4" href="/">
+              0812 3456 7890
+            </FwbFooterLink>
           </FwbFooterLinkGroup>
         </div>
         <div>
@@ -30,8 +34,8 @@
             Follow us
           </h2>
           <FwbFooterLinkGroup class="flex flex-col items-start">
-            <FwbFooterLink class="mb-4" href="/"> GitHub </FwbFooterLink>
-            <FwbFooterLink class="mb-4" href="/"> Discord </FwbFooterLink>
+            <FwbFooterLink class="mb-4" href="/"> Instagram </FwbFooterLink>
+            <FwbFooterLink class="mb-4" href="/"> Tiktok </FwbFooterLink>
           </FwbFooterLinkGroup>
         </div>
         <div>

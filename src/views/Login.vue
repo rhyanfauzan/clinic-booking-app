@@ -8,7 +8,7 @@
           <h2
             class="text-2xl text-center font-bold text-gray-900 dark:text-white"
           >
-            Sign in to Clinic Booking App
+            Sign in to Zein Clinic
           </h2>
           <img
             src="../assets/images/login.png"

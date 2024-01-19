@@ -1,22 +1,13 @@
 <template>
-  <fwb-carousel :pictures="pictures" />
+  <fwb-carousel :pictures="pictures" slide :slide-interval="5000" />
 </template>
 
 <script setup>
 import { FwbCarousel } from 'flowbite-vue';
 
 const pictures = [
-  {
-    src: 'https://www.audydental.com/wp-content/uploads/2017/11/Promo-Smile-deals-oktober_Dekstop.jpg',
-    alt: 'Image 1',
-  },
-  {
-    src: 'https://www.audydental.com/wp-content/uploads/2017/11/AUDY-Goes-to-Campus_Dekstop.jpg',
-    alt: 'Image 2',
-  },
-  {
-    src: 'https://www.audydental.com/wp-content/uploads/2017/11/Smile-Deal-Website_Dekstop-1920x600-1.jpg',
-    alt: 'Image 3',
-  },
+  { src: 'src/assets/images/banner3.png', alt: 'Image 3' },
+  { src: 'src/assets/images/banner2.png', alt: 'Image 2' },
+  { src: 'src/assets/images/banner1.png', alt: 'Image 1' },
 ];
 </script>

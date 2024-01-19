@@ -6,4 +6,7 @@ export default defineConfig({
   plugins: [vue()],
   base: 'https://bookingclinicapp.zethansa.com',
   // assetsInclude: ['**/*.vue', '**/*.js'],
+  build: {
+    assetsDir: 'assets',
+  },
 });
