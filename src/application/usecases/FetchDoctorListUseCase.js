@@ -11,7 +11,6 @@ const BASE_URL = computed(() => store.BASEURL);
 
 export async function fetchDoctorList() {
   const doctorsData = await getDoctors();
-  console.log(doctorsData);
   // Map API response to Doctor entities
   const doctorList = doctorsData.map((doctor) => {
     return new Doctor(

@@ -1,13 +1,21 @@
 import { defineStore } from 'pinia';
 
-export const useCounterStore = defineStore('counter', {
-  state: () => ({ count: 0, name: 'Eduardo' }),
+export const useTimeStore = defineStore('timeStore', {
+  state: () => ({ hour: '', date: '', doctorId: '' }),
   getters: {
-    doubleCount: (state) => state.count * 2,
+    theTime: (state) => state.hour,
+    theDate: (state) => state.date,
+    theDoctor: (state) => state.doctorId,
   },
   actions: {
-    increment() {
-      this.count++;
+    setHour(hour) {
+      this.hour = hour;
+    }, 
+    setDate(date) {
+      this.date = date;
+    },
+    setDoctor(doctorId) {
+      this.doctorId = doctorId;
     },
   },
 });

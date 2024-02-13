@@ -1,7 +1,7 @@
 <template>
   <div class="bg-primary py-10">
     <div class="container mx-auto text-center">
-      <h1 class="text-3xl text-blue-800 font-bold mb-4">Profil Zein Clinic</h1>
+      <h1 class="text-3xl text-blue-800 font-bold mb-4">Tentang Kami</h1>
       <div class="container lg:px-20 px-10">
         <fwb-p class="text-center">
           Zein Clinic adalah klinik dokter gigi spesialis terbesar yang telah
@@ -17,7 +17,7 @@
           berdedikasi.
         </fwb-p>
         <br />
-        <fwb-p class="text-center">
+        <!-- <fwb-p class="text-center">
           Berada di bawah naungan PT. Zethansa, hingga saat ini Zein Clinic
           telah memiliki 30 cabang klinik di Jabodetabek, Bandung, Surabaya, dan
           Semarang serta melayani lebih dari 15.000 pasien setiap bulannya. Zein
@@ -26,7 +26,7 @@
           besar di tanah air agar semakin dekat dengan pasien, sekaligus
           memberikan kontribusi nyata bagi peningkatan kualitas kesehatan gigi
           masyarakat.
-        </fwb-p>
+        </fwb-p> -->
       </div>
     </div>
   </div>

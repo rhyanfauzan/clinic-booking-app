@@ -3,7 +3,7 @@
   <div class="container mx-auto">
     <Jumbotron />
 
-    <h1 class="text-3xl text-center mt-10 text-blue-800 font-bold mb-8">
+    <h1 class="text-3xl text-center text-blue-800 font-bold mt-0 mb-8">
       Fasilitas
     </h1>
     <div class="flex flex-wrap justify-center mx-auto">

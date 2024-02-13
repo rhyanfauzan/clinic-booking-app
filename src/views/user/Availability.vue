@@ -3,20 +3,25 @@
     <div class="my-5">
       <Breadcrum />
     </div>
-    <h5>Please Select Date & Time</h5>
     <div class="flex flex-wrap justify-start mx-auto">
-      <div class="w-full md:pr-2 lg:w-1/3 md:w-1/2 sm:w-full mt-2 text-center">
+      <div class="w-full md:pr-2 lg:w-1/4 md:w-1/2 sm:w-full mt-2 text-left">
+        <p class="mb-2">Please Select Date</p>
         <DatePicker />
       </div>
-      <div class="w-full md:pl-2 lg:w-1/3 md:w-1/2 sm:w-full mt-2 text-center">
+      <div class="w-full md:pl-2 lg:w-1/6 md:w-1/2 sm:w-full mt-2 text-left">
+        <p class="mb-2">Please Select Time</p>
         <SelectTime />
       </div>
-      <fwb-button class="mt-3 lg:ml-5 lg:my-auto lg:mt-2" color="default"
+      <div class="w-full md:pr-2 lg:pl-2 lg:w-1/4 md:w-1/2 sm:w-full mt-2 text-left">
+        <p class="mb-2">Please Select Doctor</p>
+        <SelectDoctor />
+      </div>
+      <fwb-button @click="checkBtn" class="mt-3 md:ml-2 h-10 md:mt-9" color="default"
         >Check</fwb-button
       >
     </div>
     <div class="mt-8">
-      <!-- <div class="card flex flex-wrap justify-start mx-auto">
+      <div v-if="availabilitys" class="card flex flex-wrap justify-start mx-auto">
         <div class="w-full md:w-1/2 lg:w-1/4 mt-2">
           <img src="../../assets/images/il_dr.png" alt="" />
         </div>
@@ -35,8 +40,8 @@
             </p>
           </div>
         </div>
-      </div> -->
-      <div class="card flex flex-wrap justify-start mx-auto">
+      </div>
+      <div v-if="notavailabilitys" class="card flex flex-wrap justify-start mx-auto">
         <div class="w-full md:w-1/2 lg:w-1/4 mt-2">
           <img src="../../assets/images/il_dr_red.png" alt="" />
         </div>
@@ -67,10 +72,45 @@
 
 <script setup>
 import { FwbCard, FwbButton } from 'flowbite-vue';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { fetchAvailability } from '../../application/usecases/FetchAvailabilityUseCase';
+import { computed } from 'vue';
 import Breadcrum from '../../components/layouts/Breadcrum.vue';
 import DatePicker from '../../components/atom/DatePicker.vue';
 import SelectTime from '../../components/atom/SelectTime.vue';
+import SelectDoctor from '../../components/atom/SelectDoctor.vue';
+import { useTimeStore } from "../../store/index";
 
-const currentPage = ref(1);
+const store = useTimeStore();
+const date = computed(() => store.date);
+const time = computed(() => store.hour);
+const doctorId = computed(() => store.doctorId);
+const availabilitys = ref(false);
+const notavailabilitys = ref(false);
+
+const checkBtn = async () => {
+  try {
+    const available = await fetchAvailability('15', date.value, time.value);
+    const status = available.isAvailable;
+
+    if (status == true) {
+      availabilitys.value = true;
+      notavailabilitys.value = false;
+    } else {
+      availabilitys.value = false;
+      notavailabilitys.value = true;
+    }
+
+  } catch (error) {
+    console.error('Error fetching availabiliyt:', error.message);
+  }
+  console.log('doctorId: ', doctorId.value);
+  console.log('date: ', date.value);
+  console.log('time: ', time.value);
+
+}
+
+onMounted(async () => {
+ 
+});
 </script>
