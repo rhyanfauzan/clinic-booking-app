@@ -17,7 +17,7 @@
             class="w-12 flex-none rounded-full bg-gray-50"
             :src="doctor.profile_image"
             alt="doctor"
-            style="object-fit: cover"
+            style="object-fit: cover; width: 50px; height: 50px;"
           />
           <img
             v-else

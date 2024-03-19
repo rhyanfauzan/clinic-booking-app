@@ -1,7 +1,6 @@
 // src/application/usecases/FetchAvailabilityUseCase.js
 
 import { getAvailability } from '../../domain/repositories/AvailabilityRepository';
-import Doctor from '../../domain/entities/Doctor';
 import { computed } from 'vue';
 import { useVariableStore } from '../../store/index';
 

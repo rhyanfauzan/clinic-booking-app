@@ -10,7 +10,7 @@ import App from './App.vue';
 const pinia = createPinia();
 
 const app = createApp(App);
-app.component('VueDatePicker', VueDatePicker);
 app.use(pinia);
 app.use(router);
+app.component('VueDatePicker', VueDatePicker);
 app.mount('#app');

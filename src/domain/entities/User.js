@@ -9,3 +9,21 @@ export default class User {
     this.avatar = avatar;
   }
 }
+
+export class RegisterUser {
+  constructor(username, email, password, fullName, contact, role) {
+    this.username = username;
+    this.email = email;
+    this.password = password;
+    this.fullName = fullName;
+    this.contact = contact;
+    this.role = role;
+  }
+}
+
+export class LoginUser {
+  constructor(username, password) {
+    this.username = username;
+    this.password = password;
+  }
+}

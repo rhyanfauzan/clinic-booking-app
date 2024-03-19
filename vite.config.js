@@ -4,7 +4,8 @@ import vue from '@vitejs/plugin-vue';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
-  base: 'https://bookingclinicapp.zethansa.com',
+  base: '/',
+  // base: 'https://bookingclinicapp.zethansa.com',
   // assetsInclude: ['**/*.vue', '**/*.js'],
   build: {
     assetsDir: 'assets',
