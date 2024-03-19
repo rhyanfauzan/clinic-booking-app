@@ -1,5 +1,5 @@
 <template>
-  <fwb-table>
+  <fwb-table v-if="showList">
     <fwb-table-head>
       <fwb-table-head-cell>Product name</fwb-table-head-cell>
       <fwb-table-head-cell>Color</fwb-table-head-cell>
@@ -39,9 +39,15 @@
       </fwb-table-row>
     </fwb-table-body>
   </fwb-table>
+  <div v-if="showMessage">
+    <div class="mt-10 bg-gray-200 px-5 py-3 rounded">
+      <h5 class="text-gray-700">Anda belum pernah melakukan appointment.</h5>
+    </div>
+  </div>
 </template>
 
 <script setup>
+import axios from 'axios';
 import {
   FwbA,
   FwbTable,
@@ -51,4 +57,33 @@ import {
   FwbTableHeadCell,
   FwbTableRow,
 } from 'flowbite-vue';
+import { ref, onMounted } from 'vue';
+
+const showList = ref(false);
+const showMessage = ref(false);
+
+onMounted(() => {
+  const userid = localStorage.getItem('userid');
+  getAppointmentsByUserId(userid);
+});
+
+const getAppointmentsByUserId = (userid) => {
+
+  axios.get(`http://localhost:3000/appointments/user/${userid}`)
+    .then(response => {
+      const result = response.data;
+      if (result.status === true) {
+        showList.value = true;
+        showMessage.value = false;
+      } else {
+        showList.value = false;
+        showMessage.value = true;
+      }
+    })
+    .catch(error => {
+      console.error(error)
+      showMessage.value = true;
+
+    });
+}
 </script>

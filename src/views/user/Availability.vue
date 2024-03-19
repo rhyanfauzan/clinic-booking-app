@@ -16,10 +16,14 @@
         <p class="mb-2">Please Select Doctor</p>
         <SelectDoctor />
       </div>
-      <fwb-button @click="checkBtn" class="mt-3 md:ml-2 h-10 md:mt-9" color="default"
-        >Check</fwb-button
-      >
+      <!-- SHow Warning  -->
+      <FwbToast v-if="showWarning" type="warning" class="mx-0 px-0 ">
+        Semua form harus diisi.
+      </FwbToast>
+
     </div>
+    <fwb-button @click="checkBtn" class="mt-5 md:ml-2 h-10 md:mt-9 w-full md:w-auto" color="default">Check</fwb-button>
+
     <div class="mt-8">
       <div v-if="availabilitys" class="card flex flex-wrap justify-start mx-auto">
         <div class="w-full md:w-1/2 lg:w-1/4 mt-2">
@@ -27,9 +31,7 @@
         </div>
         <div class="w-full md:w-1/2 lg:w-3/4 mt-2">
           <div class="p-5">
-            <h5
-              class="mb-2 text-2xl font-bold tracking-tight text-green-500 dark:text-white"
-            >
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-green-500 dark:text-white">
               Hooray! the doctor you choose is available
             </h5>
             <p class="font-normal text-gray-700 dark:text-gray-400">
@@ -47,9 +49,7 @@
         </div>
         <div class="w-full md:w-1/2 lg:w-3/4 mt-2">
           <div class="p-5">
-            <h5
-              class="mb-2 text-2xl font-bold tracking-tight text-red-500 dark:text-white"
-            >
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-red-500 dark:text-white">
               Sorry.. the doctor you choose is not available
             </h5>
             <p class="font-normal text-gray-700 dark:text-gray-400">
@@ -71,8 +71,8 @@
 </style>
 
 <script setup>
-import { FwbCard, FwbButton } from 'flowbite-vue';
 import { ref, onMounted } from 'vue';
+import { FwbToast, FwbButton } from "flowbite-vue";
 import { fetchAvailability } from '../../application/usecases/FetchAvailabilityUseCase';
 import { computed } from 'vue';
 import Breadcrum from '../../components/layouts/Breadcrum.vue';
@@ -87,30 +87,32 @@ const time = computed(() => store.hour);
 const doctorId = computed(() => store.doctorId);
 const availabilitys = ref(false);
 const notavailabilitys = ref(false);
+const showWarning = ref(false);
 
 const checkBtn = async () => {
-  try {
-    const available = await fetchAvailability('15', date.value, time.value);
-    const status = available.isAvailable;
+  if (doctorId.value != '' & date.value != '' && time.value != '') {
+    showWarning.value = false;
+    try {
+      const available = await fetchAvailability(doctorId.value, date.value, time.value);
+      const status = available.isAvailable;
 
-    if (status == true) {
-      availabilitys.value = true;
-      notavailabilitys.value = false;
-    } else {
-      availabilitys.value = false;
-      notavailabilitys.value = true;
+      if (status == true) {
+        availabilitys.value = true;
+        notavailabilitys.value = false;
+      } else {
+        availabilitys.value = false;
+        notavailabilitys.value = true;
+      }
+
+    } catch (error) {
+      console.error('Error fetching availabiliyt:', error.message);
     }
-
-  } catch (error) {
-    console.error('Error fetching availabiliyt:', error.message);
+  } else {
+    showWarning.value = true;
   }
-  console.log('doctorId: ', doctorId.value);
-  console.log('date: ', date.value);
-  console.log('time: ', time.value);
-
 }
 
 onMounted(async () => {
- 
+
 });
 </script>

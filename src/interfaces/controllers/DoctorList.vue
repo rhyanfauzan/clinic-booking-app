@@ -6,26 +6,15 @@
       </div>
     </div>
     <ul v-else role="list" class="divide-y divide-gray-100">
-      <li
-        v-for="doctor in doctorList"
-        :key="doctor.email"
-        class="flex justify-between gap-x-6 py-5"
-      >
+      <li v-for="doctor in doctorList" :key="doctor.email" class="flex justify-between gap-x-6 py-5">
         <div class="flex min-w-0 gap-x-4">
-          <img
-            v-if="doctor.profile_image != `{{ BASE_URL.value }}/uploads/`"
-            class="w-12 flex-none rounded-full bg-gray-50"
-            :src="doctor.profile_image"
-            alt="doctor"
-            style="object-fit: cover; width: 50px; height: 50px;"
-          />
-          <img
-            v-else
-            class="w-12 flex-none rounded-full bg-gray-50"
-            src="../../assets/images/logo.png"
-            alt="doctor"
-            style="object-fit: cover"
-          />
+          <img v-if="doctor.profile_image === `${BASE_URL.value}/uploads/`"
+            class="w-12 flex-none rounded-full bg-gray-50" src="../../assets/images/logo.png" alt="doctor"
+            style="object-fit: cover" />
+          <img v-else
+            class="w-12 flex-none rounded-full bg-gray-50" :src="doctor.profile_image" alt="doctor"
+            style="object-fit: cover; width: 50px; height: 50px;" />
+
           <div class="min-w-0 flex-auto">
             <p class="text-sm mb-0 font-semibold leading-6 text-gray-900">
               {{ doctor.full_name }}
@@ -64,6 +53,9 @@ const doctorList = ref([]);
 onMounted(async () => {
   try {
     doctorList.value = await fetchDoctorList();
+    console.log(doctorList.value)
+    console.log(`${BASE_URL.value}/uploads/`)
+
   } catch (error) {
     console.error('Error fetching doctors:', error.message);
   }

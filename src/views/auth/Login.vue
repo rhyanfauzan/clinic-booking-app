@@ -112,12 +112,24 @@ const Login = async () => {
       },
     })
       .then(response => {
-        console.log(response.data)
         if (response.data.status == true) {
           showError.value = false;
           showSuccess.value = true;
+
+          const userData = response.data.result.userData;
+          console.log(response.data.result.userData)
+          localStorage.setItem('userid', userData.id);
+          localStorage.setItem('username', userData.username);
+          localStorage.setItem('fullname', userData.full_name);
+          localStorage.setItem('email', userData.email);
+          localStorage.setItem('role', userData.role);
+          localStorage.setItem('contact', userData.contact);
+          localStorage.setItem('profile_image', userData.profile_image);
+          localStorage.setItem('rating', userData.rating);
+
           setTimeout(() => {
-            router.push("/");
+
+            // router.push("/");
           }, 2000);
         }
       })
