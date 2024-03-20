@@ -1,5 +1,5 @@
 <template>
-  <fwb-carousel :pictures="pictures" slide :slide-interval="5000" />
+  <FwbCarousel :pictures="pictures" slide :slide-interval="5000" />
 </template>
 
 <script setup>

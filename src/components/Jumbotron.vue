@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-primary py-10">
+  <div class="bg-primary py-10 hidden md:block">
     <div class="container mx-auto text-center">
       <h1 class="text-3xl text-blue-800 font-bold mb-4">Tentang Kami</h1>
       <div class="container lg:px-20 px-10">

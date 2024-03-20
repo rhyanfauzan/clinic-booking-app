@@ -2,11 +2,7 @@
   <fwb-navbar>
     <template #logo>
       <div class="flex items-center">
-        <img
-          src="../../assets/images/logo2.png"
-          alt="logo"
-          style="width: 40px"
-        />
+        <img src="../../assets/images/logo2.png" alt="logo" style="width: 40px" />
         <h5 class="ml-2 font-medium text-lg">Zein Clinic</h5>
       </div>
     </template>
@@ -21,6 +17,20 @@
         </fwb-navbar-link>
         <fwb-navbar-link :is-active="isAvailability" link="/availability">
           Availability
+        </fwb-navbar-link>
+        <fwb-navbar-link :is-active="isAppointment" link="/appointment">
+          Appointment
+        </fwb-navbar-link>
+        <hr class="py-2" />
+        <fwb-navbar-link v-if="showLogin" link="/login">
+          <div class="bg-gray-600 px-3 py-2 text-center text-white rounded">
+            Login
+          </div>
+        </fwb-navbar-link>
+        <fwb-navbar-link v-if="showLogout" @click="onLogout">
+          <div class="bg-red-800 px-3 py-2 text-center text-white rounded">
+            Logout
+          </div>
         </fwb-navbar-link>
       </fwb-navbar-collapse>
     </template>
@@ -41,7 +51,7 @@ import {
   FwbNavbarLogo,
 } from 'flowbite-vue';
 
-import { ref, watchEffect } from 'vue';
+import { ref, watchEffect, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
@@ -51,6 +61,9 @@ const isHome = ref(false);
 const isDoctors = ref(false);
 const isHistory = ref(false);
 const isAvailability = ref(false);
+const isAppointment = ref(false);
+const showLogin = ref(false);
+const showLogout = ref(false);
 // Watch the route object for changes and update the activeLink variable
 watchEffect(() => {
   if (route.path == '/') {
@@ -64,6 +77,35 @@ watchEffect(() => {
   }
   if (route.path == '/availability') {
     isAvailability.value = true;
+  }
+  if (route.path == '/appointment') {
+    isAppointment.value = true;
+  }
+});
+
+const onLogout = () => {
+  localStorage.removeItem('userid');
+  localStorage.removeItem('username');
+  localStorage.removeItem('fullname');
+  localStorage.removeItem('email');
+  localStorage.removeItem('role');
+  localStorage.removeItem('contact');
+  localStorage.removeItem('profile_image');
+  localStorage.removeItem('rating');
+  setTimeout(() => {
+    router.push("/");
+  }, 500);
+}
+
+
+onMounted(() => {
+  const userid = localStorage.getItem('userid');
+  if (userid != null && userid != '') {
+    showLogout.value = true;
+    showLogin.value = false;
+  } else {
+    showLogin.value = true;
+    showLogout.value = false;
   }
 });
 </script>

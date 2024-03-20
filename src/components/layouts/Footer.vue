@@ -11,7 +11,7 @@
         />
         <h5 class="ml-2 font-medium text-lg">Zein Clinic</h5>
       </div>
-      <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+      <div class="mt-5 grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
         <div>
           <h2
             class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white"

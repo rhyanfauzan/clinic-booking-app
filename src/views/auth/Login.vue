@@ -128,9 +128,8 @@ const Login = async () => {
           localStorage.setItem('rating', userData.rating);
 
           setTimeout(() => {
-
-            // router.push("/");
-          }, 2000);
+            router.push("/");
+          }, 500);
         }
       })
       .catch(error => {
