@@ -6,9 +6,9 @@
           <h2 class="text-2xl text-center font-bold text-gray-900 dark:text-white">
             Sign in to Zein Clinic
           </h2>
-          <img src="../assets/images/login.png" alt="" class="mx-auto" style="height: 170px" />
+          <!-- <img src="../assets/images/login.png" alt="" class="mx-auto" style="height: 170px" /> -->
 
-          <form class="mt-8 space-y-6" action="#">
+          <form class="mt-3 space-y-6" action="#">
             <div class="text-start">
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
               <input id="email" type="email" name="email"

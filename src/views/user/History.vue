@@ -1,7 +1,7 @@
 <template>
   <div class="container md:min-h-[50vh] lg:min-h-[55vh] mx-auto px-10">
     <div class="my-5">
-      <Breadcrum />
+      <Breadcrum :nameRoute="nameRoute" />
     </div>
     <div v-if="showHistory" class="my-5">
       <HistoryList />
@@ -35,6 +35,7 @@ import { ref, onMounted } from 'vue';
 import Breadcrum from '../../components/layouts/Breadcrum.vue';
 import HistoryList from '../../interfaces/controllers/HistoryList.vue';
 
+const nameRoute = "History";
 const currentPage = ref(1);
 const showLogin = ref(false);
 const showHistory = ref(false);

@@ -30,6 +30,12 @@ const routes = [
     meta: { navbar: Navbar },
   },
   {
+    path: '/appointment',
+    name: 'appointment',
+    component: () => import('../views/user/Appointment.vue'),
+    meta: { navbar: Navbar },
+  },
+  {
     path: '/login',
     name: 'login-page',
     component: Login,

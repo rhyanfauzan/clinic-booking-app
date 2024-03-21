@@ -21,13 +21,19 @@
         <fwb-navbar-link :is-active="isAppointment" link="/appointment">
           Appointment
         </fwb-navbar-link>
+        <fwb-navbar-link v-if="showLogout" @click="onLogout" class="hidden md:block ">
+          Logout
+        </fwb-navbar-link>
+        <fwb-navbar-link v-if="showLogin" link="/login" class="hidden md:block ">
+          Login
+        </fwb-navbar-link>
         <hr class="py-2" />
-        <fwb-navbar-link v-if="showLogin" link="/login">
+        <fwb-navbar-link v-if="showLogin" link="/login" class="block md:hidden">
           <div class="bg-gray-600 px-3 py-2 text-center text-white rounded">
             Login
           </div>
         </fwb-navbar-link>
-        <fwb-navbar-link v-if="showLogout" @click="onLogout">
+        <fwb-navbar-link v-if="showLogout" @click="onLogout" class="block md:hidden">
           <div class="bg-red-800 px-3 py-2 text-center text-white rounded">
             Logout
           </div>
@@ -36,7 +42,7 @@
     </template>
 
     <template #right-side>
-      <fwb-button> Make Appointment </fwb-button>
+      <FwbButton type="button" @click="goToAppointment"> Make Appointment </FwbButton>
     </template>
   </fwb-navbar>
   <hr class="border-gray-200 sm:mx-auto dark:border-gray-700" />
@@ -52,9 +58,10 @@ import {
 } from 'flowbite-vue';
 
 import { ref, watchEffect, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
+const router = useRouter();
 
 // Define a reactive variable to track the active link
 const isHome = ref(false);
@@ -82,6 +89,10 @@ watchEffect(() => {
     isAppointment.value = true;
   }
 });
+
+const goToAppointment = () => {
+  router.push("/appointment");
+}
 
 const onLogout = () => {
   localStorage.removeItem('userid');
