@@ -36,7 +36,6 @@ import Breadcrum from '../../components/layouts/Breadcrum.vue';
 import HistoryList from '../../interfaces/controllers/HistoryList.vue';
 
 const nameRoute = "History";
-const currentPage = ref(1);
 const showLogin = ref(false);
 const showHistory = ref(false);
 
@@ -51,9 +50,5 @@ onMounted(() => {
   }
 });
 
-const GoToLogin = () => {
-  // router.push('/login');
-  aler('ok');
-};
 
 </script>

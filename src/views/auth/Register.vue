@@ -111,9 +111,12 @@ import { useRouter } from "vue-router";
 import { ref } from "vue";
 import { FwbToast } from "flowbite-vue";
 import { FwbFileInput } from "flowbite-vue";
+import { computed } from 'vue';
+import { useVariableStore } from '../../store/index';
 
+const store = useVariableStore();
+const BASE_URL = computed(() => store.BASEURL);
 const router = useRouter();
-
 const username = ref("");
 const full_name = ref("");
 const email = ref("");
@@ -157,7 +160,7 @@ const Register = async () => {
     formData.append("profileImage", fileBlob, file.value.name); // Append the file directly
     formData.append("contact", contact.value);
 
-    axios.post('http://localhost:3000/users/register', formData, {
+    axios.post(`${BASE_URL.value}/users/register`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

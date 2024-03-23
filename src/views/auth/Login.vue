@@ -6,7 +6,7 @@
           <h2 class="text-2xl text-center font-bold text-gray-900 dark:text-white">
             Sign in to Zein Clinic
           </h2>
-          <!-- <img src="../assets/images/login.png" alt="" class="mx-auto" style="height: 170px" /> -->
+          <img src="../../assets/images/login.png" alt="" class="mx-auto" style="height: 170px" />
 
           <form class="mt-3 space-y-6" action="#">
             <div class="text-start">
@@ -85,7 +85,11 @@ import axios from "axios";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import { FwbToast } from "flowbite-vue";
+import { computed } from 'vue';
+import { useVariableStore } from '../../store/index';
 
+const store = useVariableStore();
+const BASE_URL = computed(() => store.BASEURL);
 const router = useRouter();
 const showWarning = ref(false);
 const showSuccess = ref(false);
@@ -106,7 +110,7 @@ const Login = async () => {
     formData.append("email", email.value);
     formData.append("password", password.value);
 
-    axios.post('http://localhost:3000/users/login', formData, {
+    axios.post(`${BASE_URL.value}/users/login`, formData, {
       headers: {
         'Content-Type': "application/json",
       },

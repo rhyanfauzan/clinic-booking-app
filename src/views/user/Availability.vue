@@ -137,13 +137,16 @@ import {
   FwbTableRow,
 } from "flowbite-vue";
 import { fetchAvailability } from '../../application/usecases/FetchAvailabilityUseCase';
-import { computed } from 'vue';
 import Breadcrum from '../../components/layouts/Breadcrum.vue';
 import DatePicker from '../../components/atom/DatePicker.vue';
 import SelectTime from '../../components/atom/SelectTime.vue';
 import SelectDoctor from '../../components/atom/SelectDoctor.vue';
 import { useTimeStore } from "../../store/index";
+import { computed } from 'vue';
+import { useVariableStore } from '../../store/index';
 
+const storeVariable = useVariableStore();
+const BASE_URL = computed(() => storeVariable.BASEURL);
 const nameRoute = "Availability";
 const store = useTimeStore();
 const date = computed(() => store.date);
@@ -211,7 +214,7 @@ const createSchedule = async () => {
     }
   };
 
-  axios.post("http://localhost:3000/appointments/schedule", requestBody, {
+  axios.post(`${BASE_URL.value}/appointments/schedule`, requestBody, {
     config
   })
     .then((response) => {
@@ -244,7 +247,7 @@ const makeAppointment = async () => {
     }
   };
 
-  axios.post('http://localhost:3000/availability/create', requestData, config)
+  axios.post(`${BASE_URL.value}/availability/create`, requestData, config)
     .then((response) => {
       getUserById(doctorId.value);
       createSchedule();
@@ -255,7 +258,7 @@ const makeAppointment = async () => {
 
 const getUserById = async (userId) => {
   // Define the URL and parameters
-  const url = 'http://localhost:3000/users/userid';
+  const url = `${BASE_URL.value}/users/userid`;
   const params = { id: userId };
 
   // Make the GET request using Axios

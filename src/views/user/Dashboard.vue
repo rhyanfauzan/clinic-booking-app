@@ -42,7 +42,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import Carousel from '../../components/atom/Carousel.vue';
-import Modal from '../../components/atom/Modal.vue';
 import Jumbotron from '../../components/Jumbotron.vue';
 import Card from '../../components/atom/Card.vue';
 
