@@ -19,10 +19,10 @@
             Contact
           </h2>
           <FwbFooterLinkGroup class="flex flex-col items-start">
-            <FwbFooterLink class="mb-4" href="/">
+            <FwbFooterLink class="mb-4" href="https://maps.app.goo.gl/eKNs5kXrKLEddkSn6 ">
               Jl. Soekarno-Hatta, Bandung
             </FwbFooterLink>
-            <FwbFooterLink class="mb-4" href="/">
+            <FwbFooterLink class="mb-4" href="https://wa.me/08123456789">
               0812 3456 7890
             </FwbFooterLink>
           </FwbFooterLinkGroup>
@@ -34,8 +34,8 @@
             Follow us
           </h2>
           <FwbFooterLinkGroup class="flex flex-col items-start">
-            <FwbFooterLink class="mb-4" href="/"> Instagram </FwbFooterLink>
-            <FwbFooterLink class="mb-4" href="/"> Tiktok </FwbFooterLink>
+            <FwbFooterLink class="mb-4" href="https://instagram.com/"> Instagram </FwbFooterLink>
+            <FwbFooterLink class="mb-4" href="https://tiktok.com/"> Tiktok </FwbFooterLink>
           </FwbFooterLinkGroup>
         </div>
         <div>

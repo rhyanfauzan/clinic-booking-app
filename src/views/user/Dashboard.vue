@@ -4,7 +4,7 @@
       <h1 class="text-md text-white font-medium">Hallo, {{ userFullName }}! 😊</h1>
     </div>
   </div>
-  <Carousel />
+  <Carousel :banners="banners" />
   <div class="container mx-auto">
     <Jumbotron />
 
@@ -27,6 +27,7 @@
     opacity: 0;
     transform: translateX(-100%);
   }
+
   100% {
     opacity: 1;
     transform: translateX(0);
@@ -36,19 +37,59 @@
 .animate-fade-in-left {
   animation: slideInLeft 0.8s ease-in-out forwards;
 }
-
 </style>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import axios from 'axios';
 import Carousel from '../../components/atom/Carousel.vue';
 import Jumbotron from '../../components/Jumbotron.vue';
 import Card from '../../components/atom/Card.vue';
+import { ref, onMounted, computed } from 'vue';
+import { useVariableStore } from '../../store/index';
 
+const store = useVariableStore();
+const BASE_URL = computed(() => store.BASEURL);
 const showGreet = ref(false);
 const userFullName = ref('');
+const cards = ref([]);
+const banners = ref([]);
+
+const getAllBanner = () => {
+  axios.get(`${BASE_URL.value}/banner`)
+    .then(response => {
+      const result = response.data;
+      if (result.status === true) {
+        result.result.forEach(element => {
+          banners.value.push({ "id": element.id, "additional": element.additional, "src": `${BASE_URL.value}/uploads/${element.image}`});
+        });
+      } else {
+      }
+    })
+    .catch(error => {
+      console.error(error)
+    });
+}
+
+const getAllContent = () => {
+  axios.get(`${BASE_URL.value}/content`)
+    .then(response => {
+      const result = response.data;
+      if (result.status === true) {
+        result.result.forEach(element => {
+          cards.value.push({ "id": element.id, "title": element.title, "description": element.description, "imageSrc": `${BASE_URL.value}/uploads/${element.image}`});
+        });
+      } else {
+      }
+    })
+    .catch(error => {
+      console.error(error)
+    });
+}
+
 
 onMounted(() => {
+  getAllBanner();
+  getAllContent();
   const userid = localStorage.getItem('userid');
   if (userid != null && userid != '') {
     showGreet.value = true;
@@ -56,31 +97,6 @@ onMounted(() => {
   } else {
     showGreet.value = false;
   }
-  console.log(showGreet.value)
-  console.log(userFullName.value)
 });
 
-const cards = [
-  {
-    imageSrc: 'src/assets/images/card1.png',
-    imageAlt: 'Veneers',
-    title: 'Dental Veneers',
-    description:
-      'VENEER merupakan lapisan material yang terbuat dari composite/porcelain yang berfungsi untuk mengubah bentuk, ukuran, serta warna gigi agar tampilannya lebih estetik.',
-  },
-  {
-    imageSrc: 'src/assets/images/card3.png',
-    imageAlt: 'Braces',
-    title: 'Braces / Retainer',
-    description:
-      'Kawat gigi atau behel adalah salah satu alat yang digunakan untuk mendapatkan susunan gigi yang ideal yang bekerja dengan cara memberikan tekanan ke gigi untuk secara perlahan menggerakkan gigi ke posisi idealnya.',
-  },
-  {
-    imageSrc: 'src/assets/images/card2.png',
-    imageAlt: 'Whitening',
-    title: 'Teeth Whitening',
-    description:
-      'Bleaching gigi atau pemutihan gigi merupakan prosedur estetika yang digunakan untuk membuat permukaan gigi tampak lebih putih.',
-  },
-];
 </script>
