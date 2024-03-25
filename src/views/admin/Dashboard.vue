@@ -25,7 +25,14 @@
         </div>
 
         <div v-else>
-            <h5 class="font-medium text-lg my-3">Content Management</h5>
+            <div class="flex justify-between mb-3">
+                <h5 class="font-medium text-lg my-3">Content Management</h5>
+                <div>
+                    <fwb-button @click="showModalCreateContent" color="dark" size="sm" class="py-2 px-4">
+                        Create Content
+                    </fwb-button>
+                </div>
+            </div>
             <fwb-table>
                 <fwb-table-head class="text-center">
                     <fwb-table-head-cell>ID</fwb-table-head-cell>
@@ -47,7 +54,7 @@
                         <fwb-table-cell>
                             <fwb-table-row>
                                 <fwb-table-cell>
-                                    <fwb-button color="yellow" @click="editContent(content.id)"> Edit
+                                    <fwb-button color="yellow" @click="showModalUpdateContent(content.id)"> Edit
                                     </fwb-button>
                                 </fwb-table-cell>
                                 <fwb-table-cell>
@@ -59,6 +66,72 @@
                     </fwb-table-row>
                 </fwb-table-body>
             </fwb-table>
+            <!-- modal create content  -->
+            <fwb-modal v-if="isShowModalContentCreate" @close="closeModalContentCreate">
+                <template #header>
+                    <div class="flex items-center text-lg">
+                        Create Content
+                    </div>
+                </template>
+                <template #body>
+                    <fwb-input v-model="title" class="mb-2" placeholder="Enter title here.." label="Title" />
+                    <fwb-input v-model="description" class="mb-2" placeholder="Enter description here.."
+                        label="Description" />
+                    <fwb-file-input v-model="file" class="mb-2" label="Image">
+                        <p class="!mt-1 text-sm text-gray-500 dark:text-gray-300">
+                            SVG, PNG, JPG or GIF (Square. 800x800px).
+                        </p>
+                    </fwb-file-input>
+                </template>
+                <template #footer>
+                    <div class="flex justify-end">
+                        <FwbToast v-if="showWarning" type="warning" class="mx-0 px-0 py-0 my-0">
+                            Semua data harus diisi.
+                        </FwbToast>
+                        <!-- Show Success  -->
+                        <FwbToast v-if="showSuccess" type="success" class="mx-0 px-0 py-0 my-0">
+                            Berhasil Membuat Kontent Card!
+                        </FwbToast>
+                        <fwb-button @click="closeModalContentCreate" color="light" class="px-10 me-5">
+                            Cancel
+                        </fwb-button>
+                        <fwb-button @click="createContent" color="green" class="px-10">
+                            Create
+                        </fwb-button>
+                    </div>
+                </template>
+            </fwb-modal>
+            <!-- modal update content  -->
+            <fwb-modal v-if="isShowModalContentUpdate" @close="closeModalContentUpdate">
+                <template #header>
+                    <div class="flex items-center text-lg">
+                        Update Content
+                    </div>
+                </template>
+                <template #body>
+                    <fwb-input v-model="title" class="mb-2" placeholder="Enter title here.." label="Title" />
+                    <fwb-input v-model="description" class="mb-2" placeholder="Enter description here.."
+                        label="Description" />
+                </template>
+                <template #footer>
+                    <div class="flex justify-end">
+                        <FwbToast v-if="showWarning" type="warning" class="mx-0 px-0 py-0 my-0">
+                            Semua data harus diisi.
+                        </FwbToast>
+                        <!-- Show Success  -->
+                        <FwbToast v-if="showSuccess" type="success" class="mx-0 px-0 py-0 my-0">
+                            Berhasil Mengubah Kontent Card!
+                        </FwbToast>
+                        <fwb-button @click="closeModalContentUpdate" color="light" class="px-10 me-5">
+                            Cancel
+                        </fwb-button>
+                        <fwb-button @click="updateContent" color="green" class="px-10">
+                            Update
+                        </fwb-button>
+                    </div>
+                </template>
+            </fwb-modal>
+            <!-- modal delete content  -->
             <fwb-modal v-if="isShowModalContentDelete" @close="closeModalContentDelete">
                 <template #header>
                     <div class="flex items-center text-lg">
@@ -94,7 +167,10 @@ import {
     FwbTableHead,
     FwbTableHeadCell,
     FwbTableRow,
-    FwbButton, FwbModal
+    FwbButton, FwbModal,
+    FwbInput,
+    FwbFileInput,
+    FwbToast
 } from 'flowbite-vue';
 import { ref, onMounted, computed } from 'vue';
 import Breadcrum from '../../components/layouts/Breadcrum.vue';
@@ -104,11 +180,20 @@ import { useRouter } from 'vue-router';
 const store = useVariableStore();
 const BASE_URL = computed(() => store.BASEURL);
 const token = ref('');
+const router = useRouter();
 const nameRoute = "Admin | Dashboard";
 const showLogin = ref(false);
 const contents = ref([]);
+const isShowModalContentCreate = ref(false);
+const isShowModalContentUpdate = ref(false);
 const isShowModalContentDelete = ref(false);
 const tempID = ref('');
+const title = ref('');
+const description = ref('');
+const file = ref(null);
+const showWarning = ref(false);
+const showSuccess = ref(false);
+const showError = ref(false);
 
 const showModalDeleteContent = (idContent) => {
     isShowModalContentDelete.value = true;
@@ -119,6 +204,113 @@ const showModalDeleteContent = (idContent) => {
 const closeModalContentDelete = () => {
     isShowModalContentDelete.value = false;
 }
+
+const showModalCreateContent = () => {
+    isShowModalContentCreate.value = true;
+}
+
+const closeModalContentCreate = () => {
+    isShowModalContentCreate.value = false;
+}
+
+const showModalUpdateContent = (idContent) => {
+    isShowModalContentUpdate.value = true;
+    console.log(idContent)
+    tempID.value = idContent;
+}
+
+const closeModalContentUpdate = () => {
+    isShowModalContentUpdate.value = false;
+}
+
+const createContent = async () => {
+    console.log("title: ", title.value);
+    console.log("description: ", description.value);
+    console.log("file: ", file.value);
+
+    if (
+        title.value != "" &&
+        description.value != "" &&
+        file.value != null
+    ) {
+        showWarning.value = false;
+        const fileBlob = new Blob([file.value], { type: file.value.type });
+
+        const formData = new FormData();
+        formData.append("title", title.value);
+        formData.append("description", description.value);
+        formData.append("image", fileBlob, file.value.name); // Append the file directly
+
+        axios.post(`${BASE_URL.value}/content`, formData, {
+            headers: {
+                'Authorization': token.value,
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+            .then(response => {
+                console.log(response.data)
+                if (response.data.status == true) {
+                    showError.value = false;
+                    showSuccess.value = true;
+                    setTimeout(() => {
+                        closeModalContentCreate();
+                        location.reload()
+                    }, 500);
+                }
+            })
+            .catch(error => {
+                console.error(error)
+                showSuccess.value = false;
+                showError.value = true;
+            });
+        console.log(formData.values);
+    } else {
+        showWarning.value = true;
+    }
+};
+
+const updateContent = async () => {
+    console.log("title: ", title.value);
+    console.log("description: ", description.value);
+
+    if (
+        title.value != "" &&
+        description.value != ""
+    ) {
+        showWarning.value = false;
+
+        const formData = new FormData();
+        formData.append("title", title.value);
+        formData.append("description", description.value);
+
+        axios.put(`${BASE_URL.value}/content/${tempID.value}`, formData, {
+            headers: {
+                'Authorization': token.value,
+                'Content-Type': "application/json",
+            },
+        })
+            .then(response => {
+                console.log(tempID.value)
+                console.log(response.data)
+                if (response.data.status == true) {
+                    showError.value = false;
+                    showSuccess.value = true;
+                    setTimeout(() => {
+                        closeModalContentUpdate();
+                        location.reload()
+                    }, 500);
+                }
+            })
+            .catch(error => {
+                console.error(error)
+                showSuccess.value = false;
+                showError.value = true;
+            });
+        console.log(formData.values);
+    } else {
+        showWarning.value = true;
+    }
+};
 
 const deleteContent = () => {
     axios.delete(`${BASE_URL.value}/content/${tempID.value}`, {
@@ -145,7 +337,6 @@ const getAllContent = () => {
     axios.get(`${BASE_URL.value}/content`)
         .then(response => {
             const result = response.data;
-            console.log(result)
             if (result.status === true) {
                 result.result.forEach(element => {
                     contents.value.push({ "id": element.id, "title": element.title, "description": element.description, "image": `${BASE_URL.value}/uploads/${element.image}` });
