@@ -98,9 +98,6 @@ const showError = ref(false);
 const Login = async () => {
   showWarning.value = false;
 
-  console.log("email: ", email.value);
-  console.log("password: ", password.value);
-
   if (
     email.value != "" &&
     password.value != ""
@@ -121,7 +118,7 @@ const Login = async () => {
           showSuccess.value = true;
 
           const userData = response.data.result.userData;
-          console.log(response.data.result.userData)
+          localStorage.setItem('token', response.data.result.token);
           localStorage.setItem('userid', userData.id);
           localStorage.setItem('username', userData.username);
           localStorage.setItem('fullname', userData.full_name);
@@ -142,8 +139,6 @@ const Login = async () => {
         showError.value = true;
 
       });
-
-    console.log(formData.values);
 
   } else {
     showWarning.value = true;

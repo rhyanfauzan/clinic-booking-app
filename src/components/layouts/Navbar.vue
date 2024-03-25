@@ -8,6 +8,9 @@
     </template>
     <template #default="{ isShowMenu }">
       <fwb-navbar-collapse :is-show-menu="isShowMenu">
+        <fwb-navbar-link v-if="showAdmin" :is-active="isAdmin" link="/admin">
+          Dashboard Admin
+        </fwb-navbar-link>
         <fwb-navbar-link :is-active="isHome" link="/"> Home </fwb-navbar-link>
         <fwb-navbar-link :is-active="isDoctors" link="/doctors">
           Doctors
@@ -64,13 +67,16 @@ const route = useRoute();
 const router = useRouter();
 
 // Define a reactive variable to track the active link
+const userRole = ref("user");
 const isHome = ref(false);
+const isAdmin = ref(false);
 const isDoctors = ref(false);
 const isHistory = ref(false);
 const isAvailability = ref(false);
 const isAppointment = ref(false);
 const showLogin = ref(false);
 const showLogout = ref(false);
+const showAdmin = ref(false);
 // Watch the route object for changes and update the activeLink variable
 watchEffect(() => {
   if (route.path == '/') {
@@ -87,6 +93,9 @@ watchEffect(() => {
   }
   if (route.path == '/appointment') {
     isAppointment.value = true;
+  }
+  if (route.path == '/admin') {
+    isAdmin.value = true;
   }
 });
 
@@ -111,9 +120,13 @@ const onLogout = () => {
 
 onMounted(() => {
   const userid = localStorage.getItem('userid');
+  userRole.value = localStorage.getItem('role');
   if (userid != null && userid != '') {
     showLogout.value = true;
     showLogin.value = false;
+    if(userRole.value == "admin"){
+      showAdmin.value = true;
+    }
   } else {
     showLogin.value = true;
     showLogout.value = false;

@@ -52,7 +52,7 @@ const routes = [
     path: "/admin",
     name: "admin-dashboard",
     component: () => import("../views/admin/Dashboard.vue"), // Import Admin Dashboard component
-    meta: { requiresAuth: true, requiresRole: "admin" }, // Add meta field for role-based access
+    meta: { requiresAuth: true, requiresRole: "admin", navbar: Navbar }, // Add meta field for role-based access
   },
 ];
 
